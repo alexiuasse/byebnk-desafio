@@ -1,0 +1,30 @@
+{% load static %}
+{% load i18n %}
+{% load svg_icons %}
+{% comment %}
+
+Must develop a way to put live notifications without using websockets, maybe using messages?
+
+{% endcomment %}
+<div class="nav-item dropdown d-none d-md-flex me-3">
+    <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1"
+        aria-label="{% trans "Show notifications" %}">
+        {% svg_icon "bell" "icon" %}
+        {% if messages %}<span class="badge bg-red"></span>{% endif %}
+    </a>
+    <div class="dropdown-menu dropdown-menu-end dropdown-menu-card">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="card">
+            <div class="card-status-top bg-{{message.tags}}"></div>
+            <div class="card-body">
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <h3 class="card-title">{% trans "Important" %}</h3>
+                {% endif %}
+                <p>{{ message }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>

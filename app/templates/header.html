@@ -1,0 +1,30 @@
+{% load static %}
+{% load i18n %}
+{% load svg_icons %}
+<header class="navbar navbar-expand-md navbar-light d-none d-lg-flex d-print-none">
+    <div class="container-xl">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-nav flex-row order-md-last">
+
+            {% include './header_buttons.html' %}
+            {% include './header_notification.html' %}
+            {% include './header_options.html' %}
+
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-menu">
+            <div>
+                <form action="." method="get">
+                    <div class="input-icon">
+                        <span class="input-icon-addon">
+                            {% svg_icon "search" "icon" %}
+                        </span>
+                        <input type="text" class="form-control" placeholder="{% trans "Search…" %}"
+                            aria-label="{% trans "Search in website" %}">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>

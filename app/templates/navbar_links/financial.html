@@ -1,0 +1,27 @@
+{% load svg_icons %}
+{% load i18n %}
+<li class="nav-item dropdown {% if request.resolver_match.namespaces.0 == 'financial' %} active {% endif %}">
+    <a class=" nav-link dropdown-toggle {% if request.resolver_match.namespaces.0 == 'financial' %}show{% endif %}"
+        href="#navbar-base" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+        <span class="nav-link-icon d-md-none d-lg-inline-block">
+            {% svg_icon "file_invoice" "icon" %}
+        </span>
+        <span class="nav-link-title">
+            {% trans "Financial" %}
+        </span>
+    </a>
+    <div class="dropdown-menu {% if request.resolver_match.namespaces.0 == 'financial' %}show{% endif %}">
+        <a class="dropdown-item" href="{% url 'financial:financialrelease:view' %}">
+            {% trans "Financial Release" %}
+        </a>
+        <a class="dropdown-item" href="{% url 'financial:paymentstatus:view' %}">
+            {% trans "Payment Status" %}
+        </a>
+        <a class="dropdown-item" href="{% url 'financial:typeofpayment:view' %}">
+            {% trans "Type of Payment" %}
+        </a>
+        <a class="dropdown-item" href="{% url 'financial:costcenter:view' %}">
+            {% trans "Cost Center" %}
+        </a>
+    </div>
+</li>

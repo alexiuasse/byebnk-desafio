@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load svg_icons %}
+
+{% block body_html %}
+
+<body class="antialiased border-top-wide border-primary d-flex flex-column">
+    <div class="page page-center">
+        <div class="container-tight py-4">
+            <div class="empty">
+                <img alt="error" height="150" src="{% static 'illustrations/undraw_bug_fixing_oc7a.svg' %}">
+                <div class="empty-header">{{error_code}}</div>
+                <p class="empty-title">{% trans "Oops ... something went wrong" %}</p>
+                <p class="empty-subtitle text-muted">{{error_text}}</p>
+                <div class="empty-action">
+                    <a href="{% url 'dashboard:dashboard' %}" class="btn btn-primary">
+                        {% svg_icon "arrow_back" "icon" %}
+                        {% trans "Go to Home" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block javascript %}
+    <script src="{% static 'base/dist/js/tabler.min.js' %}"></script>
+    {% endblock %}
+</body>
+
+{% endblock body_html %}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %}
+{% load svg_icons %}
+
+<html lang="en">
+
+<head>
+    <meta name="google-site-verification" content="rGJ_dUMhnYcvve_7ssjugBZD-k8LtDQ1QqyrFrXMl30" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport" />
+    <meta content="ie=edge" http-equiv="X-UA-Compatible" />
+    <title>{% block head_title %} {{NAME_OF_ENTERPRISE}} {% endblock %}</title>
+    <link crossorigin href="https://fonts.gstatic.com/" rel="preconnect">
+    <meta content="#206bc4" name="msapplication-TileColor" />
+    <meta content="#206bc4" name="theme-color" />
+    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="mobile-web-app-capable" />
+    <meta content="True" name="HandheldFriendly" />
+    <meta content="320" name="MobileOptimized" />
+    <meta content="noindex,nofollow,noarchive" name="robots" />
+    <link href="{% static 'favicon.ico' %}" rel="icon" type="image/x-icon" />
+    <link href="{% static 'favicon.ico' %}" rel="shortcut icon" type="image/x-icon" />
+    <!-- CSS files -->
+    <link href="{% static 'base/dist/css/tabler.min.css' %}" rel="stylesheet" />
+    <link href="{%static 'base/dist/css/tabler-vendors.min.css' %}" rel="stylesheet" />
+    {% block custom_css %}{% endblock %}
+    <style>
+        body {
+            display: none;
+        }
+    </style>
+    <!--  Block of links  -->
+    {% block links %}{% endblock %}
+</head>
+{% block body_html %}
+
+<body class="antialiased">
+    <div class="wrapper">
+        {% block navbar %}{% include "navbar_vertical.html" %}{% endblock %}
+        {% block header %}{% include "header.html" %}{% endblock %}
+        <div class="page-wrapper">
+            <div class="container-xl">
+                {% block page_header %}
+                <div class="page-header d-print-none">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            {% block page_pretitle %}{% endblock page_pretitle %}
+                            {% block page_title %}{% endblock page_title %}
+                        </div>
+                        {% block page_title_actions %}
+                        <div class="col-auto ms-auto d-print-none">
+                            <div class="btn-list">
+                                {% block page_title_actions_items %}{% endblock page_title_actions_items %}
+                            </div>
+                        </div>
+                        {% endblock page_title_actions %}
+                    </div>
+                </div>
+                {% endblock page_header %}
+            </div>
+            <div class="page-body">
+                <div class="container-xl">
+                    {% block page_body %} {% endblock page_body %}
+                </div>
+            </div>
+            {% block footer %}{% include "footer.html" %}{% endblock %}
+        </div>
+    </div>
+    {% include './modal_logout.html' %}
+    <!-- Tabler Core -->
+    <script src="{% static 'base/dist/js/tabler.min.js' %}"></script>
+    <script>
+        document.body.style.display = "block";
+    </script>
+    <!-- Libs JS -->
+    {% block javascript %}{% endblock %}
+</body>
+
+{% endblock %}
+
+</html>

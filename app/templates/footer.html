@@ -1,0 +1,49 @@
+{% load i18n %}
+{% load static %}
+{% load svg_icons %}
+<footer class="footer footer-transparent d-print-none">
+    <div class="container">
+        <div class="row text-center align-items-center flex-row-reverse">
+            <div class="col-lg-auto ms-lg-auto">
+                <ul class="list-inline list-inline-dots mb-0">
+                    <li class="list-inline-item">
+                        <a href="./docs/index.html" class="link-secondary">
+                            {% trans "Documentation" %}
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="./license.html" class="link-secondary">
+                            {% trans "License" %}
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="{{SOURCE_CODE_LINK}}" target="_blank" class="link-secondary" rel="noopener">
+                            {% trans "Source code" %}
+                        </a>
+                    </li>
+                    {% comment %}
+                    <li class="list-inline-item">
+                        <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary"
+                            rel="noopener">
+                            {% svg_icon "heart" "icon text-pink icon-filled icon-inline" %}
+                            Sponsor
+                        </a>
+                    </li>
+                    {% endcomment %}
+                </ul>
+            </div>
+            <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+                <ul class="list-inline list-inline-dots mb-0">
+                    <li class="list-inline-item">
+                        {{FOOTER_COPYRIGHT}}
+                        <a href="{{FOOTER_LINK}}" class="link-secondary">{{FOOTER_TEXT}}</a>.
+                        {% trans "All rights reserved" %}
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="./changelog.html" class="link-secondary" rel="noopener">{{VERSION}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

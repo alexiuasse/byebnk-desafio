@@ -1,0 +1,54 @@
+{% load i18n %}
+{% load currency %}
+<div class="col-lg-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div class="subheader">{{ctx.month_goal.subtitle}}</div>
+            </div>
+            <div class="h1 mb-3">{{ctx.month_goal.earn|currency}}</div>
+            <div class="mb-3">
+                <div class="d-flex mb-2">
+                    <div>{{ctx.month_goal.title}} ({{ctx.month_goal.goal|currency}})</div>
+                    <div class="ms-auto">
+                        <span class="text-green d-inline-flex align-items-center lh-1">
+                            {{ctx.month_goal.metric}}%
+                        </span>
+                    </div>
+                </div>
+                <div class="progress progress-sm">
+                    <div class="progress-bar {{ctx.month_goal.bg}}" style="width: {{ctx.month_goal.metric}}%"
+                        role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        <span class="visually-hidden">{{ctx.month_goal.metric}}% {% trans "Complete" %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div class="subheader">{{ctx.year_goal.subtitle}}</div>
+            </div>
+            <div class="h1 mb-3">{{ctx.year_goal.earn|currency}}</div>
+            <div class="mb-3">
+                <div class="d-flex mb-2">
+                    <div>{{ctx.year_goal.title}} ({{ctx.year_goal.goal|currency}})</div>
+                    <div class="ms-auto">
+                        <span class="text-green d-inline-flex align-items-center lh-1">
+                            {{ctx.year_goal.metric}}%
+                        </span>
+                    </div>
+                </div>
+                <div class="progress progress-sm">
+                    <div class="progress-bar {{ctx.year_goal.bg}}" style="width: {{ctx.year_goal.metric}}%"
+                        role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        <span class="visually-hidden">{{ctx.year_goal.metric}}% {% trans "Complete" %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

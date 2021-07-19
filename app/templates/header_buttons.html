@@ -1,0 +1,16 @@
+{% load svg_icons %}
+{% load i18n %}
+<div class="nav-item d-none d-md-flex me-3">
+    <div class="btn-list">
+        <a href="{{SOURCE_CODE_LINK}}" class="btn btn-outline-white" target="_blank" rel="noreferrer">
+            {% svg_icon "brand_github" "icon" %}
+            {% trans "Source code" %}
+        </a>
+        {% comment %}
+        <a href="https://github.com/sponsors/codecalm" class="btn btn-outline-white" target="_blank" rel="noreferrer">
+            {% svg_icon "brand_github" "icon text-pink" %}
+            Sponsor
+        </a>
+        {% endcomment %}
+    </div>
+</div>

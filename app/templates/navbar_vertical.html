@@ -1,0 +1,61 @@
+{% load i18n %}
+{% load svg_icons %}
+{% load static %}
+<aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <h1 class="navbar-brand navbar-brand-autodark">
+            <a href="{% url 'dashboard:dashboard' %}">
+                <img src="{% static 'logo-white.svg' %}" width="110" height="110" alt="Logo">
+            </a>
+        </h1>
+
+        <div class="navbar-nav flex-row d-lg-none">
+
+            {% include './header_buttons.html' %}
+            {% include './header_notification.html' %}
+            {% include './header_options.html' %}
+
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-menu">
+            <ul class="navbar-nav pt-lg-3">
+                <li class="nav-item {% if request.resolver_match.namespaces.0 == 'dashboard' %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'dashboard:dashboard'%}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            {% svg_icon "dashboard" "icon" %}
+                        </span>
+                        <span class="nav-link-title">
+                            {% trans "Dashboard" %}
+                        </span>
+                    </a>
+                </li>
+
+                {% include './navbar_links/financial.html' %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            {% svg_icon "shield_lock" "icon" %}
+                        </span>
+                        <span class="nav-link-title">
+                            {% trans "Admin" %}
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'error-test' %}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            {% svg_icon "bug" "icon" %}
+                        </span>
+                        <span class="nav-link-title">
+                            {% trans "Error" %}
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</aside>

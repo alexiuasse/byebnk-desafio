@@ -1,0 +1,50 @@
+{% extends './base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load static %}
+{% load svg_icons %}
+{% block body_html %}
+
+<body class="antialiased border-top-wide border-primary d-flex flex-column">
+    <div class="flex-fill d-flex flex-column justify-content-center">
+        <div class="container-tight py-6">
+            <form action="" class="card card-md" method="post">
+                {% csrf_token %}
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <img alt="{{NAME_OF_ENTERPRISE}}" height="150" src="{% static 'logo.svg' %}">
+                    </div>
+                    <div class="text-muted">
+                        {% if form.errors %}
+                        <p class="text-danger text-center font-weight-bold mb-2">
+                            {% trans "User or Password wrong" %}
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">{{form.username|as_crispy_field}}</label>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">{{form.password|as_crispy_field}}</label>
+                    </div>
+                    <div class="form-footer">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" type="submit">
+                                {% svg_icon "login" "icon" %} {% trans "Login" %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="text-center text-muted">
+            </div>
+        </div>
+    </div>
+    <!-- Tabler Core -->
+    <script src="{% static 'base/dist/js/tabler.min.js' %}"></script>
+    <script>
+        document.body.style.display = "block";
+    </script>
+</body>
+
+{% endblock %}

@@ -1,0 +1,188 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-20 13:52-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: app/mixins.py:26
+msgid "{} was created successfully"
+msgstr "{} foi criado com sucesso"
+
+#: dashboard/error_views.py:15
+msgid "Wrong request or corrupted."
+msgstr "Requisição errada ou corrompida."
+
+#: dashboard/error_views.py:23 dashboard/error_views.py:31
+msgid "You don't have permission to access this page!"
+msgstr "Você não tem permissão para acessar esta página!"
+
+#: dashboard/error_views.py:39
+msgid "Page Not Found!"
+msgstr "Página Não Encontrada!"
+
+#: dashboard/error_views.py:46
+msgid "Internal Server Error!"
+msgstr "Erro Interno do Servidor!"
+
+#: dashboard/error_views.py:53
+msgid "Our service is not availabel at this moment!"
+msgstr "Nosso serviço não está disponível neste momento!"
+
+#: dashboard/templates/dashboard/view.html:20
+msgid "My Wallet"
+msgstr "Minha Carteira"
+
+#: dashboard/templates/dashboard/view.html:22
+#: dashboard/templates/dashboard/view.html:40
+msgid "Total in Appliances"
+msgstr "Total em Aplicações"
+
+#: dashboard/templates/dashboard/view.html:26
+msgid "Total Redeemed"
+msgstr "Total Resgatado"
+
+#: dashboard/templates/dashboard/view.html:35
+#: financial/templates/financial/appliance/modal.html:5 financial/views.py:37
+#: templates/navbar_links/financial.html:18
+msgid "Appliance"
+msgstr "Aplicação"
+
+#: dashboard/views.py:20 templates/navbar_vertical.html:31
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: financial/models.py:21
+msgid "Name"
+msgstr "Nome"
+
+#: financial/models.py:25 financial/models.py:49
+msgid "Modality"
+msgstr "Modalidade"
+
+#: financial/models.py:31 financial/models.py:65
+msgid "User"
+msgstr "Usuário"
+
+#: financial/models.py:53
+msgid "Request Date"
+msgstr "Data de Solicitação"
+
+#: financial/models.py:56
+msgid "Quantity"
+msgstr "Quantidade"
+
+#: financial/models.py:59
+msgid "Unit Price"
+msgstr "Preço Unitário"
+
+#: financial/models.py:70 financial/tables.py:21 financial/tables.py:36
+msgid "Total"
+msgstr "Total"
+
+#: financial/templates/financial/appliance/view.html:15
+msgid "New Appliance"
+msgstr "Nova Aplicação"
+
+#: financial/templates/financial/asset/modal.html:5 financial/views.py:19
+#: templates/navbar_links/financial.html:15
+msgid "Asset"
+msgstr "Ativo"
+
+#: financial/templates/financial/asset/view.html:15
+msgid "New Asset"
+msgstr "Novo Ativo"
+
+#: financial/templates/financial/modal.html:16 templates/modal_logout.html:14
+msgid "Close"
+msgstr "Fechar"
+
+#: financial/templates/financial/modal.html:17
+msgid "Save"
+msgstr "Salvar"
+
+#: financial/templates/financial/redeem/modal.html:5 financial/views.py:63
+#: templates/navbar_links/financial.html:21
+msgid "Redeem"
+msgstr "Resgate"
+
+#: financial/templates/financial/redeem/view.html:15
+msgid "New Redeem"
+msgstr "Novo Resgate"
+
+#: financial/templates/financial/view.html:45
+msgid "Search"
+msgstr "Filtrar"
+
+#: financial/templates/financial/view.html:50
+msgid "Clear"
+msgstr "Limpar"
+
+#: templates/error.html:14
+msgid "Oops ... something went wrong"
+msgstr "Oops ... algo deu errado"
+
+#: templates/error.html:19
+msgid "Go to Home"
+msgstr "Ir para Início"
+
+#: templates/footer.html:11 templates/header_buttons.html:7
+msgid "Source code"
+msgstr "Código Fonte"
+
+#: templates/footer.html:21
+msgid "All rights reserved"
+msgstr "Todos os direitos reservados"
+
+#: templates/header_notification.html:11
+msgid "Show notifications"
+msgstr "Mostrar notificações"
+
+#: templates/header_notification.html:22
+msgid "Important"
+msgstr "Importante"
+
+#: templates/header_options.html:13 templates/modal_logout.html:9
+msgid "Logout"
+msgstr "Sair"
+
+#: templates/login.html:20
+msgid "User or Password wrong"
+msgstr "Usuário ou Senha errado"
+
+#: templates/login.html:33
+msgid "Login"
+msgstr "Entrar"
+
+#: templates/modal_logout.html:12
+msgid "Do you want logout?"
+msgstr "Você quer sair?"
+
+#: templates/modal_logout.html:15
+msgid "Yes"
+msgstr "Sim"
+
+#: templates/navbar_links/financial.html:10
+msgid "Financial"
+msgstr "Financeiro"
+
+#: templates/navbar_vertical.html:45
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/navbar_vertical.html:56
+msgid "Error"
+msgstr "Error"

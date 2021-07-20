@@ -7,17 +7,11 @@ from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED
 from .serializers import *
 from .utils import get_client_ip, FinancialMixin
 
-# Eu poderia ter usado a classe ModelViewSet disponível no django restframework
-# porém como essa parte da api é para somente criar um ativo (asset) é mais
-# simples fazer dessa forma.
-
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def rest_add_asset(request):
-    # definindo o usuário que criou como o usuário da requisição, caso não seja enviado pelo aplicativo
-    # data = request.data.copy()
-    # data['user'] = request.user
+    """Adiciona um ativo depois de validado."""
     asset_serializer = AssetAddSerializer(data=request.data)
     # se não for válido, então vai lançar uma exceção
     if asset_serializer.is_valid(raise_exception=True):
@@ -28,8 +22,11 @@ def rest_add_asset(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def rest_list_asset(request):
+    """
+    Retorna uma lista de ativos com possibilidade de query pela modalidade.
+    """
     modality_query = request.GET.get('modality', None)
-    if modality_query:
+    if modality_query is not None:
         asset = Asset.objects.filter(modality=modality_query)
     else:
         asset = Asset.objects.all()
@@ -40,6 +37,7 @@ def rest_list_asset(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def rest_appliance_list(request):
+    """Retorna uma lista de aplicações pertencentes ao usuário da requisição."""
     appliance_serializer = ApplianceGetSerializer(
         Appliance.objects.filter(user=request.user),
         many=True
@@ -50,6 +48,7 @@ def rest_appliance_list(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def rest_appliance_add(request):
+    """Cria uma aplicação e adiciona o endereço de ip."""
     # transformando a criação em atômica
     with transaction.atomic():
         data = request.data.copy()
@@ -63,6 +62,7 @@ def rest_appliance_add(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def rest_redeem_add(request):
+    """Cria um resgate e adiciona o endereço de ip."""
     # transformando a criação em atômica
     with transaction.atomic():
         data = request.data.copy()
@@ -76,6 +76,7 @@ def rest_redeem_add(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def rest_redeem_list(request):
+    """Retorna a lista de resgates pertencentes ao usuário da requisição."""
     redeem_serializer = RedeemGetSerializer(
         Redeem.objects.filter(user=request.user),
         many=True
@@ -86,6 +87,6 @@ def rest_redeem_list(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_appliance_data_chart_donut(request):
-    """Return JsonReponse with appliance separeted by asset."""
+    """Retorna dados para preencher um gráfico de pizza."""
     financialMixin = FinancialMixin(request)
     return Response(financialMixin.get_appliance_by_asset_donut_chart())

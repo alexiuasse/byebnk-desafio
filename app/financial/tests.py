@@ -9,10 +9,11 @@ from .serializers import *
 class TestAsset(TestCase):
 
     def setUp(self):
-        user = User.objects.create(username='testuser')
-        user.set_password('12345')
-        user.save()
-        self.client.login(username='testuser', password="12345")
+        user = User.objects.create_user(
+            username='testuser1',
+            password='123456'
+        )
+        self.client.login(username='testuser1', password="123456")
 
         Asset.objects.create(
             name="BITCOIN",
@@ -88,10 +89,11 @@ class TestAsset(TestCase):
 class TestAppliance(TestCase):
 
     def setUp(self):
-        user = User.objects.create(username='testuser')
-        user.set_password('12345')
-        user.save()
-        self.client.login(username='testuser', password="12345")
+        user = User.objects.create_user(
+            username='testuser1',
+            password='123456'
+        )
+        self.client.login(username='testuser1', password="123456")
 
         Asset.objects.create(
             name="BITCOIN",
@@ -134,9 +136,10 @@ class TestAppliance(TestCase):
         """
         Testar se as aplicações estão retornando somente a do usuário que fez requisição.
         """
-        user = User.objects.create(username='testuser2')
-        user.set_password('12345')
-        user.save()
+        user2 = User.objects.create_user(
+            username='testuser2',
+            password='123456'
+        )
 
         # criando uma aplicação com o usuário testeuser2
         Appliance.objects.create(
@@ -144,7 +147,7 @@ class TestAppliance(TestCase):
             request_date=timezone.now().date(),
             quantity=1,
             unit_price=10,
-            user=User.objects.get(pk=2),
+            user=user2,
             ip_address='127.0.0.1',
         )
 
@@ -159,10 +162,11 @@ class TestAppliance(TestCase):
 class TestRedeem(TestCase):
 
     def setUp(self):
-        user = User.objects.create(username='testuser')
-        user.set_password('12345')
-        user.save()
-        self.client.login(username='testuser', password="12345")
+        user = User.objects.create_user(
+            username='testuser1',
+            password='123456'
+        )
+        self.client.login(username='testuser1', password="123456")
 
         Asset.objects.create(
             name="BITCOIN",
@@ -205,17 +209,18 @@ class TestRedeem(TestCase):
         """
         Testar se as aplicações estão retornando somente a do usuário que fez requisição.
         """
-        user = User.objects.create(username='testuser2')
-        user.set_password('12345')
-        user.save()
+        user2 = User.objects.create_user(
+            username='testuser2',
+            password='123456'
+        )
 
-        # criando uma aplicação com o usuário testeuser2
+        # criando uma retirada com o usuário testeuser2
         Redeem.objects.create(
             asset=Asset.objects.get(pk=1),
             request_date=timezone.now().date(),
             quantity=1,
             unit_price=10,
-            user=User.objects.get(pk=2),
+            user=user2,
             ip_address='127.0.0.1',
         )
 

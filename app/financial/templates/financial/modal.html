@@ -3,10 +3,10 @@
 {% load i18n %}
 <div class="modal modal-blur fade" id="modal-form" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form method="post" class="form form-control">
+        <form method="post" enctype="multipart/form-data" class="form form-control">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{% trans "Change Dashboard Settings" %}</h5>
+                    <h5 class="modal-title">{% block modal_form_title %}{% endblock modal_form_title %}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

@@ -2,11 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% load svg_icons %}
-{% load render_table from django_tables2 %}
-{% load crispy_forms_tags %}
 {% load currency %}
-
-{% block links %}{% endblock links %}
 
 {% block page_title %}
 <h2 class="page-title">
@@ -16,99 +12,42 @@
 </h2>
 {% endblock page_title %}
 
-{% block page_title_actions_items %}
-<a href="javascript:{}" class="btn btn-ghost-light btn-icon" data-bs-toggle="modal" data-bs-target="#modal-form">
-    {% svg_icon "settings" "icon" %}
-</a>
-{% endblock page_title_actions_items %}
-
 {% block page_body %}
-<div class="row row-deck row-cards">
-    <div class="col-12">
-        <div class="row row-deck row-cards">
-            {% for k,v in row_deck_sales.items %}
-            <div class="col-md-3">
-                <div class="card card-sm">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-auto">
-                                <span class="{{v.bg_color}} text-white avatar">{% svg_icon v.icon "icon" %}</span>
-                            </div>
-                            <div class="col">
-                                <div class="font-weight-medium">
-                                    {{v.title}}
-                                </div>
-                                <div class="text-muted">
-                                    {{v.subtitle}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="row row-cards">
-            <div class="col-lg-4 col-sm-12">
-                <div class="row row-deck row-cards">
-                    {% if financial_goal %}
-                    {% include './financial_goals.html' with ctx=financial_goal %}
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-lg-8 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">{% trans "Asset x Liability - Year/Month" %}</h3>
-                        <div id="chart-year-month" class="chart-lg"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-12">
+<div class="row row-cards">
+    <div class="col-lg-6 col-sm-12">
         <div class="card">
             <div class="card-body">
-                <h3 class="card-title">{% trans "Asset x Liability - Per Day in Month" %}</h3>
-                <div id="chart-asset-liability-per-day" class="chart-lg"></div>
+                <h3 class="card-title">{% svg_icon "wallet" "icon" %} {% trans "My Wallet" %}</h3>
+                <p class="text-muted">
+                    {% trans "Total in Appliances" %}
+                    <span class="font-weight-bold">{{total_appliance|currency}}</span>
+                </p>
+                <p class="text-muted">
+                    {% trans "Total Redeemed" %}
+                    <span class="font-weight-bold">{{total_redeemed|currency}}</span>
+                </p>
             </div>
         </div>
     </div>
-    <div class="col-12">
-        <div class="row row-deck row-cards">
-            <div class="col-lg-6 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">{% trans "Asset x Liability - Year" %}</h3>
-                        <div id="chart-asset-liability-year-pie" class="chart-lg"></div>
-                    </div>
-                </div>
+    <div class="col-lg-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{% trans "Appliance" %}</h3>
+                <div id="chart-appliance" class="chart-lg"></div>
             </div>
-            <div class="col-lg-6 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">{% trans "Asset x Liability - Month" %}</h3>
-                        <div id="chart-asset-liability-month-pie" class="chart-lg"></div>
-                    </div>
-                </div>
+            <div class="card-footer">
+                <p class="text-muted">
+                    {% trans "Total in Appliances" %}
+                    <span class="font-weight-bold">{{total_appliance|currency}}</span>
+                </p>
             </div>
         </div>
     </div>
 </div>
-{% include './modal.html' %}
 {% endblock page_body %}
 
 {% block javascript %}
 <script src="{% static 'base/dist/libs/apexcharts/dist/apexcharts.min.js' %}"></script>
 <script src="{% static 'base/dist/libs/jquery/jquery-3.6.0.min.js' %}"></script>
-<script>
-    var showModal = "{{show_modal}}";
-</script>
 <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
-<script src="{% static 'dashboard/js/financial_year_month.js' %}"></script>
-<script src="{% static 'dashboard/js/financial_asset_liability_year.js' %}"></script>
-<script src="{% static 'dashboard/js/financial_asset_liability_month.js' %}"></script>
-<script src="{% static 'dashboard/js/financial_asset_liability_per_day.js' %}"></script>
 {% endblock javascript %}

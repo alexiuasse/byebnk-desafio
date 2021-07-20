@@ -11,17 +11,14 @@
         </span>
     </a>
     <div class="dropdown-menu {% if request.resolver_match.namespaces.0 == 'financial' %}show{% endif %}">
-        <a class="dropdown-item" href="{% url 'financial:financialrelease:view' %}">
-            {% trans "Financial Release" %}
+        <a class="dropdown-item" href="{% url 'financial:asset:view' %}">
+            {% trans "Asset" %}
         </a>
-        <a class="dropdown-item" href="{% url 'financial:paymentstatus:view' %}">
-            {% trans "Payment Status" %}
+        <a class="dropdown-item" href="{% url 'financial:appliance:view' %}">
+            {% trans "Appliance" %}
         </a>
-        <a class="dropdown-item" href="{% url 'financial:typeofpayment:view' %}">
-            {% trans "Type of Payment" %}
-        </a>
-        <a class="dropdown-item" href="{% url 'financial:costcenter:view' %}">
-            {% trans "Cost Center" %}
+        <a class="dropdown-item" href="{% url 'financial:redeem:view' %}">
+            {% trans "Redeem" %}
         </a>
     </div>
 </li>

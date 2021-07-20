@@ -32,6 +32,9 @@ class Asset(models.Model):
         on_delete=models.CASCADE
     )
 
+    def __str__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
         """Capitalize the name."""
         self.name = self.name.capitalize()
@@ -53,7 +56,7 @@ class BaseFinancial(models.Model):
         verbose_name=_("Quantity")
     )
     unit_price = models.DecimalField(
-        verbose_name=_("Value"),
+        verbose_name=_("Unit Price"),
         max_digits=settings.DEFAULT_MAX_DIGITS,
         decimal_places=settings.DEFAULT_DECIMAL_PLACES,
     )
@@ -63,9 +66,24 @@ class BaseFinancial(models.Model):
         on_delete=models.CASCADE
     )
     ip_address = models.GenericIPAddressField()
+    total = models.DecimalField(
+        verbose_name=_("Total"),
+        max_digits=settings.DEFAULT_MAX_DIGITS,
+        decimal_places=settings.DEFAULT_DECIMAL_PLACES,
+        blank=True,
+        null=True
+    )
 
     class Meta:
         abstract = True
+
+    def save(self, *args, **kwargs):
+        """Set the total."""
+        self.total = self.get_total()
+        super(BaseFinancial, self).save(*args, **kwargs)
+
+    def get_total(self):
+        return round(self.quantity * self.unit_price, settings.DEFAULT_DECIMAL_PLACES)
 
 
 class Appliance(BaseFinancial):

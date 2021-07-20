@@ -38,6 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'bootstrap5',
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'django_tables2',
+    'django_filters',
+    'app',
     'dashboard',
     'financial',
 ]
@@ -50,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # activate translation
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -57,7 +64,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,6 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'app.context_processors.general_template_context',
             ],
         },
     },
@@ -106,14 +114,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = 'pt-br'
+LANGUAGES = [
+    ('en', 'English'),
+    ('pt-br', 'Brazilian Portuguese'),
+]
+LOCALE_PATHS = (BASE_DIR / 'locale',)
+# DATE_FORMAT = "d/m/Y"
+TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 

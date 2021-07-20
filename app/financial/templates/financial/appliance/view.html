@@ -1,0 +1,25 @@
+{% extends 'financial/view.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block links %}
+<link href="{% static 'base/dist/libs/select2/css/select2.min.css' %}" rel="stylesheet" />
+<link href="{% static 'base/dist/libs/select2/css/select2-bootstrap.min.css' %}" rel="stylesheet" />
+{% endblock links %}
+
+{% block modals %}
+{% include './modal.html' %}
+{% endblock modals %}
+
+{% block title_button_new %}
+{% trans "New Appliance" %}
+{% endblock title_button_new %}
+
+{% block javascript %}
+<script src="{% static 'base/dist/libs/jquery/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'base/dist/libs/select2/js/select2.full.min.js' %}"></script>
+<script>
+    var showModal = "{{show_modal}}";
+</script>
+<script src="{% static 'financial/js/appliance.js' %}"></script>
+{% endblock javascript %}

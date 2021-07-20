@@ -118,6 +118,9 @@ class TestAppliance(TestCase):
         )
         self.assertEqual(response.status_code, 201)
 
+        appliance = Appliance.objects.get(pk=1)
+        self.assertEqual(appliance.total, 10)
+
     def test_rest_appliance_ip(self):
         """Testar o ip adicionado a cada aplicação."""
         response = self.client.post(
@@ -161,6 +164,9 @@ class TestRedeem(TestCase):
             }
         )
         self.assertEqual(response.status_code, 201)
+
+        redeem = Redeem.objects.get(pk=1)
+        self.assertEqual(redeem.total, 10)
 
     def test_rest_appliance_ip(self):
         """Testar o ip adicionado a cada retirada."""

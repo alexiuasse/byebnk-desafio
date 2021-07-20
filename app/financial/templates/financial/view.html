@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load svg_icons %}
+{% load bootstrap5 %}
+{% load render_table from django_tables2 %}
+{% load export_url from django_tables2 %}
+{% load crispy_forms_tags %}
+
+{% block links %}
+{% endblock links %}
+
+{% block page_title %}
+<h2 class="page-title">
+    <h2 class="page-title">
+        {% if page_title_icon %}{% svg_icon page_title_icon "icon" %}{% endif %} {{page_title}}
+    </h2>
+</h2>
+{% endblock page_title %}
+
+{% block page_title_actions_items %}
+<a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-form">
+    {% svg_icon "plus" "icon" %}
+    {% block title_button_new %}{% endblock title_button_new %}
+</a>
+<a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal" data-bs-target="#modal-form">
+    {% svg_icon "plus" "icon" %}
+</a>
+{% endblock page_title_actions_items %}
+
+{% block page_body %}
+{% if filter %}
+<div class="card mb-3">
+    <div class="card-body">
+        <form action="" method="get" class="form form-inline" id="form-filter">
+            <div class="row">
+                <input type="checkbox" hidden name="reset-filter" id="id_reset-filter">
+                {% for input in filter.form %}
+                <div class="form-group col-lg-3 col-md-6 col-sm-12 mb-0">
+                    {% bootstrap_field input %}
+                </div>
+                {% endfor %}
+                <div class="form-group col mb-auto mt-auto">
+                    <button class="btn btn-primary btn-sm" type="submit" aria-label="Search">
+                        {% svg_icon "search" "icon" %} {% trans "Search" %}
+                    </button>
+                    <a href="#" class="btn btn-primary btn-sm"
+                        onclick="$('#id_reset-filter').trigger('click'); $('#form-filter').trigger('submit');"
+                        aria-label="Clear">
+                        {% svg_icon "clear-all" "icon" %} {% trans "Clear" %}
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+<div class="card">
+    <div class="card-body">
+        <form method="get" class="form form-inline" id='form-table'>
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="d-flex justify-content-start col-8">
+                    <div class="w-auto">
+                        <div class="input-group">
+                            {% for format in export_formats %}
+                            <a href="{% export_url format %}" class="btn btn-success">
+                                {% svg_icon "download" "icon icon" %} .{{format}}
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                {% render_table table %}
+            </div>
+        </form>
+    </div>
+</div>
+{% block modals %}{% endblock modals %}
+{% endblock page_body %}
+
+{% block javascript %}
+<script src="{% static 'base/dist/libs/jquery/jquery-3.6.0.min.js' %}"></script>
+<script>
+    var showModal = "{{show_modal}}";
+</script>
+<script src="{% static 'financial/js/financial.js' %}"></script>
+{% endblock javascript %}

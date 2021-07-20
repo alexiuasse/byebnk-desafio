@@ -12,10 +12,7 @@ def index(request):
     Index that redirects to dashboard if authenticated and if it is superuser, else redirect to login page. If not authenticated redirect to login to (maybe you wanna put a homepage?)
     """
     if request.user.is_authenticated:
-        if request.user.is_superuser:
-            return HttpResponseRedirect(reverse('dashboard:dashboard'))
-        else:
-            return HttpResponseRedirect(reverse('login'))
+        return HttpResponseRedirect(reverse('dashboard:dashboard'))
     else:
         # return HttpResponseRedirect(reverse('homepage'))
         return HttpResponseRedirect(reverse('login'))

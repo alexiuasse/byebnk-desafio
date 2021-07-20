@@ -12,6 +12,7 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('admin/', admin.site.urls, name='admin'),
     path('dashboard/', include("dashboard.urls")),
+    path('financial/', include("financial.urls")),
     path('error/', error_test_view, name="error-test"),
 ]
 

@@ -26,6 +26,16 @@ class Asset(models.Model):
         choices=MODALITY_CHOICES,
         max_length=2,
     )
+    user = models.ForeignKey(
+        User,
+        verbose_name=_("User"),
+        on_delete=models.CASCADE
+    )
+
+    def save(self, *args, **kwargs):
+        """Capitalize the name."""
+        self.name = self.name.capitalize()
+        super(Asset, self).save(*args, **kwargs)
 
 
 class BaseFinancial(models.Model):
@@ -52,6 +62,7 @@ class BaseFinancial(models.Model):
         verbose_name=_("User"),
         on_delete=models.CASCADE
     )
+    ip_address = models.GenericIPAddressField()
 
     class Meta:
         abstract = True

@@ -1,11 +1,12 @@
 from django.test import TestCase
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 from .models import *
 from .serializers import *
 
 
-class TestAssetCreation(TestCase):
+class TestAsset(TestCase):
 
     def setUp(self):
         user = User.objects.create(username='testuser')
@@ -86,3 +87,91 @@ class TestAssetCreation(TestCase):
             response.data,
             asset_serializer.data,
         )
+
+
+class TestAppliance(TestCase):
+
+    def setUp(self):
+        user = User.objects.create(username='testuser')
+        user.set_password('12345')
+        # user.is_superuser = True
+        user.save()
+        self.client.login(username='testuser', password="12345")
+
+        Asset.objects.create(
+            name="BITCOIN",
+            modality="RF",
+            user=user,
+        )
+
+    def test_rest_appliance_add(self):
+        """Testar criação de aplicação no rest api."""
+        response = self.client.post(
+            '/financial/api/rest/appliance/add/',
+            data={
+                'asset': 1,
+                'request_date': timezone.now().date(),
+                'quantity': 1,
+                'unit_price': 10,
+                'user': 1,
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+
+    def test_rest_appliance_ip(self):
+        """Testar o ip adicionado a cada aplicação."""
+        response = self.client.post(
+            '/financial/api/rest/appliance/add/',
+            data={
+                'asset': 1,
+                'request_date': timezone.now().date(),
+                'quantity': 1,
+                'unit_price': 10,
+                'user': 1,
+            }
+        )
+        self.assertEqual(response.data['ip_address'], '127.0.0.1')
+
+
+class TestRedeem(TestCase):
+
+    def setUp(self):
+        user = User.objects.create(username='testuser')
+        user.set_password('12345')
+        # user.is_superuser = True
+        user.save()
+        self.client.login(username='testuser', password="12345")
+
+        Asset.objects.create(
+            name="BITCOIN",
+            modality="RF",
+            user=user,
+        )
+
+    def test_rest_appliance_add(self):
+        """Testar criação de retirada no rest api."""
+        response = self.client.post(
+            '/financial/api/rest/redeem/add/',
+            data={
+                'asset': 1,
+                'request_date': timezone.now().date(),
+                'quantity': 1,
+                'unit_price': 10,
+                'user': 1,
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+
+    def test_rest_appliance_ip(self):
+        """Testar o ip adicionado a cada retirada."""
+        response = self.client.post(
+            '/financial/api/rest/redeem/add/',
+            data={
+                'asset': 1,
+                'request_date': timezone.now().date(),
+                'quantity': 1,
+                'unit_price': 10,
+                'user': 1,
+            }
+        )
+        self.assertEqual(response.data['ip_address'], '127.0.0.1')

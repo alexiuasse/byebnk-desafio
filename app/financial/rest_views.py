@@ -1,14 +1,16 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from django.db import transaction
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED
 
 from .serializers import *
-
+from .utils import get_client_ip
 
 # Eu poderia ter usado a classe ModelViewSet disponível no django restframework
 # porém como essa parte da api é para somente criar um ativo (asset) é mais
 # simples fazer dessa forma.
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -34,3 +36,29 @@ def rest_list_asset(request):
         asset = Asset.objects.all()
     asset_serializer = AssetGetSerializer(asset, many=True)
     return Response(asset_serializer.data, status=HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def rest_appliance_add(request):
+    # transformando a criação em atômica
+    with transaction.atomic():
+        data = request.data.copy()
+        data['ip_address'] = get_client_ip(request)
+        appliance_serializer = ApplianceAddSerializer(data=data)
+        if appliance_serializer.is_valid(raise_exception=True):
+            appliance = appliance_serializer.save()
+            return Response(appliance_serializer.data, status=HTTP_201_CREATED)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def rest_redeem_add(request):
+    # transformando a criação em atômica
+    with transaction.atomic():
+        data = request.data.copy()
+        data['ip_address'] = get_client_ip(request)
+        redeem_serializer = RedeemAddSerializer(data=data)
+        if redeem_serializer.is_valid(raise_exception=True):
+            redeem = redeem_serializer.save()
+            return Response(redeem_serializer.data, status=HTTP_201_CREATED)

@@ -28,15 +28,35 @@ class AssetGetSerializer(serializers.ModelSerializer):
         fields = ['pk', 'name', 'modality']
 
 
-class ApplianceSerializer(serializers.ModelSerializer):
+class ApplianceAddSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Appliance
-        fields = ['asset', 'request_date', 'quantity', 'unit_price']
+        fields = ['asset', 'request_date',
+                  'quantity', 'unit_price', 'user', 'ip_address']
 
 
-class RedeemSerializer(serializers.ModelSerializer):
+class ApplianceGetSerializer(serializers.ModelSerializer):
+
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = Appliance
+        fields = ['asset', 'request_date', 'quantity', 'unit_price', 'user']
+
+
+class RedeemAddSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Redeem
-        fields = ['asset', 'request_date', 'quantity', 'unit_price']
+        fields = ['asset', 'request_date',
+                  'quantity', 'unit_price', 'user', 'ip_address']
+
+
+class RedeemGetSerializer(serializers.ModelSerializer):
+
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = Redeem
+        fields = ['asset', 'request_date', 'quantity', 'unit_price', 'user']

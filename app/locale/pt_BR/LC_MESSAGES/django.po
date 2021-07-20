@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 13:52-0300\n"
+"POT-Creation-Date: 2021-07-20 14:23-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,6 +64,10 @@ msgstr "Aplicação"
 #: dashboard/views.py:20 templates/navbar_vertical.html:31
 msgid "Dashboard"
 msgstr "Dashboard"
+
+#: financial/forms.py:38
+msgid "Asset already exists!"
+msgstr "Ativo já existe!"
 
 #: financial/models.py:21
 msgid "Name"

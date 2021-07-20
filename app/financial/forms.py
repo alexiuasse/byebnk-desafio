@@ -1,8 +1,9 @@
 from django import forms
 from django.conf import settings
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Div, Layout, Row, Field
+from crispy_forms.layout import Layout, Row, Field
 from crispy_forms.bootstrap import PrependedText
+from django.utils.translation import gettext as _
 
 from .models import *
 
@@ -30,6 +31,12 @@ class AssetForm(forms.ModelForm):
     class Meta:
         model = Asset
         fields = '__all__'
+
+    def clean_name(self):
+        name = self.cleaned_data['name'].capitalize()
+        if Asset.objects.filter(name=name).count() > 0:
+            raise forms.ValidationError(_("Asset already exists!"))
+        return name
 
 
 class ApplianceForm(forms.ModelForm):

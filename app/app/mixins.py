@@ -40,7 +40,6 @@ class MyFormValid:
             self.custom_response = self.form_valid(form)
             self.reset_form = True
         else:
-            print(form.errors)
             self.custom_response = self.form_invalid(form)
 
 

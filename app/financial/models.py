@@ -74,6 +74,9 @@ class BaseFinancial(models.Model):
         null=True
     )
 
+    def __str__(self):
+        return f"{self.asset} - {self.total} - {self.user}"
+
     class Meta:
         abstract = True
 

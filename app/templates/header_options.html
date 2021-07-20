@@ -6,7 +6,7 @@
         <span class="avatar avatar-sm" style="background-image: url({% static 'img/perfil.svg' %})"></span>
         <div class="d-none d-xl-block ps-2">
             <div>{{ user.get_full_name }}</div>
-            <div class="mt-1 small text-muted">{{ user.groups.all.0 }}</div>
+            <div class="mt-1 small text-muted">{{ user.username }}</div>
         </div>
     </a>
     <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

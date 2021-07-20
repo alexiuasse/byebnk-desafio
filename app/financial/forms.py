@@ -45,7 +45,7 @@ class ApplianceForm(forms.ModelForm):
             Field('request_date', wrapper_class="col-lg-6 col-sm-12"),
         ),
         Row(
-            Field('quantity', wrapper_class="col-lg-4 col-sm-12"),
+            Field('quantity', wrapper_class="col-lg-6 col-sm-12"),
             PrependedText('unit_price', settings.MONEY_SYMBOL,
                           wrapper_class="col-lg-6 col-sm-12"),
         ),
@@ -80,7 +80,7 @@ class RedeemForm(forms.ModelForm):
             Field('request_date', wrapper_class="col-lg-6 col-sm-12"),
         ),
         Row(
-            Field('quantity', wrapper_class="col-lg-4 col-sm-12"),
+            Field('quantity', wrapper_class="col-lg-6 col-sm-12"),
             PrependedText('unit_price', settings.MONEY_SYMBOL,
                           wrapper_class="col-lg-6 col-sm-12"),
         ),

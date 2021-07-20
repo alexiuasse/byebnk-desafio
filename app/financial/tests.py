@@ -11,7 +11,6 @@ class TestAsset(TestCase):
     def setUp(self):
         user = User.objects.create(username='testuser')
         user.set_password('12345')
-        # user.is_superuser = True
         user.save()
         self.client.login(username='testuser', password="12345")
 
@@ -83,10 +82,7 @@ class TestAsset(TestCase):
         asset = Asset.objects.filter(modality="RF")
         asset_serializer = AssetGetSerializer(data=asset, many=True)
         asset_serializer.is_valid()
-        self.assertListEqual(
-            response.data,
-            asset_serializer.data,
-        )
+        self.assertListEqual(response.data, asset_serializer.data)
 
 
 class TestAppliance(TestCase):
@@ -94,7 +90,6 @@ class TestAppliance(TestCase):
     def setUp(self):
         user = User.objects.create(username='testuser')
         user.set_password('12345')
-        # user.is_superuser = True
         user.save()
         self.client.login(username='testuser', password="12345")
 
@@ -135,13 +130,37 @@ class TestAppliance(TestCase):
         )
         self.assertEqual(response.data['ip_address'], '127.0.0.1')
 
+    def test_appliance_restrict_to_user(self):
+        """
+        Testar se as aplicações estão retornando somente a do usuário que fez requisição.
+        """
+        user = User.objects.create(username='testuser2')
+        user.set_password('12345')
+        user.save()
+
+        # criando uma aplicação com o usuário testeuser2
+        Appliance.objects.create(
+            asset=Asset.objects.get(pk=1),
+            request_date=timezone.now().date(),
+            quantity=1,
+            unit_price=10,
+            user=User.objects.get(pk=2),
+            ip_address='127.0.0.1',
+        )
+
+        # pegando a lista de aplicações do usuário que está logado, no caso o usuário testuser
+        response = self.client.get('/financial/api/rest/appliance/list/')
+        appliance = Appliance.objects.filter(user=1)
+        appliance_serializer = ApplianceGetSerializer(data=appliance, many=True)
+        appliance_serializer.is_valid()
+        self.assertListEqual(response.data, appliance_serializer.data)
+
 
 class TestRedeem(TestCase):
 
     def setUp(self):
         user = User.objects.create(username='testuser')
         user.set_password('12345')
-        # user.is_superuser = True
         user.save()
         self.client.login(username='testuser', password="12345")
 
@@ -181,3 +200,74 @@ class TestRedeem(TestCase):
             }
         )
         self.assertEqual(response.data['ip_address'], '127.0.0.1')
+
+    def test_redeem_restrict_to_user(self):
+        """
+        Testar se as aplicações estão retornando somente a do usuário que fez requisição.
+        """
+        user = User.objects.create(username='testuser2')
+        user.set_password('12345')
+        user.save()
+
+        # criando uma aplicação com o usuário testeuser2
+        Redeem.objects.create(
+            asset=Asset.objects.get(pk=1),
+            request_date=timezone.now().date(),
+            quantity=1,
+            unit_price=10,
+            user=User.objects.get(pk=2),
+            ip_address='127.0.0.1',
+        )
+
+        # pegando a lista de aplicações do usuário que está logado, no caso o usuário testuser
+        response = self.client.get('/financial/api/rest/redeem/list/')
+        redeem = Redeem.objects.filter(user=1)
+        redeem_serializer = RedeemGetSerializer(data=redeem, many=True)
+        redeem_serializer.is_valid()
+        self.assertListEqual(response.data, redeem_serializer.data)
+
+
+class TestFinancialMixin(TestCase):
+
+    def setUp(self):
+        user = User.objects.create_user(
+            username='testuser1',
+            password='123456'
+        )
+
+        Asset.objects.create(
+            name="BITCOIN",
+            modality="RF",
+            user=user,
+        )
+        Appliance.objects.create(
+            asset=Asset.objects.get(pk=1),
+            request_date=timezone.now().date(),
+            quantity=1,
+            unit_price=10,
+            user=User.objects.get(pk=1),
+            ip_address='127.0.0.1',
+        )
+
+        Redeem.objects.create(
+            asset=Asset.objects.get(pk=1),
+            request_date=timezone.now().date(),
+            quantity=1,
+            unit_price=10,
+            user=User.objects.get(pk=1),
+            ip_address='127.0.0.1',
+        )
+
+    def test_get_data_chart(self):
+        """Testar se está retornando os dados do gráfico corretamente."""
+        self.client.login(username='testuser1', password="123456")
+        response = self.client.get(
+            '/financial/appliance/dashboard/data/chart/donut/'
+        )
+        self.assertEqual(
+            response.data,
+            {
+                'series': [10],
+                'labels': ['Bitcoin']
+            }
+        )

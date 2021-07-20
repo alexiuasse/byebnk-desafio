@@ -9,7 +9,9 @@ rest_api_patterns = ([
     path('asset/add/', rest_add_asset),
     path('asset/list/', rest_list_asset),
     path('appliance/add/', rest_appliance_add),
+    path('appliance/list/', rest_appliance_list),
     path('redeem/add/', rest_redeem_add),
+    path('redeem/list/', rest_redeem_list),
 ], 'restfinancial')
 
 asset_patterns = ([

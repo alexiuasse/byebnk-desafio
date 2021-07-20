@@ -1,7 +1,4 @@
-from django.http.response import JsonResponse
 from django.utils.translation import gettext as _
-from django.views.decorators.http import require_http_methods
-from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse_lazy
 from app.mixins import MyViewCreateMixin
 
@@ -79,12 +76,3 @@ class RedeemView(MyViewCreateMixin):
         data[f"{self.form_prefix}-user"] = self.request.user.pk
         data[f"{self.form_prefix}-ip_address"] = get_client_ip(self.request)
         return data
-
-
-@login_required
-@require_http_methods(['GET'])
-@permission_required('financial.view_appliance')
-def get_appliance_data_chart_donut(request):
-    """Return JsonReponse with appliance separeted by asset."""
-    financialMixin = FinancialMixin(request)
-    return JsonResponse(financialMixin.get_appliance_by_asset_donut_chart())

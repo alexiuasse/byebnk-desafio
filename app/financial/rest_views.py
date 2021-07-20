@@ -26,5 +26,11 @@ def rest_add_asset(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def rest_list_asset(request):
-    asset_serializer = AssetGetSerializer(Asset.objects.all(), many=True)
+    modality_query = request.GET.get('modality', None)
+    if modality_query:
+
+        asset = Asset.objects.filter(modality=modality_query)
+    else:
+        asset = Asset.objects.all()
+    asset_serializer = AssetGetSerializer(asset, many=True)
     return Response(asset_serializer.data, status=HTTP_200_OK)

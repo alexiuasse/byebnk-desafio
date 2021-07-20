@@ -69,3 +69,20 @@ class TestAssetCreation(TestCase):
             response.data,
             asset_serializer.data,
         )
+
+    def test_asset_rest_api_list_sorted(self):
+        """
+        Testar a api rest está enviando lista filtrada de ativos corretamente.
+        """
+        response = self.client.get(
+            '/financial/api/rest/asset/list/?modality=RF'
+        )
+        self.assertEqual(response.status_code, 200)
+
+        asset = Asset.objects.filter(modality="RF")
+        asset_serializer = AssetGetSerializer(data=asset, many=True)
+        asset_serializer.is_valid()
+        self.assertListEqual(
+            response.data,
+            asset_serializer.data,
+        )

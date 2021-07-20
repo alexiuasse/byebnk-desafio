@@ -10,20 +10,23 @@ Apesar do teste ser somente a criação de API eu fiz um sistema com um frontend
 
 A api se encontra em:
 
--financial
-    - rest_views.py
-    - test.py
-    - models.py
-    - serializers.py
+1. financial
+2. rest_views.py
+3. test.py
+4. models.py
+5. serializers.py
 
 ### A respeito do item 1 (Cadastrar ativos)
 
 Eu adicionei a normalização do nome do ativo, sendo que a primeira letra será em maiúsculo e o resto em minúsculo. Tamém adicionei a verificação de um ativo já estar cadastrado a api retornará um erro informando que já tem um ativo com mesmo nome cadastrado.
 
+### A respeito do item 2
+
+Todos os items foram implementados.
+
 ### A respeito do item 3 (Visualizar o saldo da sua carteira de investimentos) 
 
 Eu coloquei a carteira para ser mostrada na página do Dashboard com um gráfico em pizza.
-
 
 ## Requisitos Extras
 
